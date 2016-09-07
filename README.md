@@ -1,6 +1,45 @@
+# Dockerfiles for moodle base image and dokku Dockerfile deploy
+
+Set up the database according to https://docs.moodle.org/31/en/PostgreSQL
 
 ## Building base image
 
+This image is usually built by docker hub and pulled by the dokku host. You don't usually need to build it yourself.
+
 ```shell
 docker build -t moodle-base:latest -f Dockerfile-base .
+```
+
+## Building app image for local testing
+
+```shell
+docker build -t moodle-dokku:latest -f Dockerfile .
+```
+
+## Run locally
+
+```
+docker run -i --net=host -v `pwd`/moodledata:/var/moodledata --name=moodle moodle-dokku:latest
+```
+
+Visit it at http://localhost/
+
+## Deploy to production
+
+Configure environment variables on server
+
+```
+dokku config:set moodle \
+      DB_HOST=postgresql94-prod.cnc362bhpvfe.eu-west-1.rds.amazonaws.com \
+      DB_NAME=moodle \
+      DB_USER=moodle \
+      DB_PASSWORD=... \
+      MOODLE_URL=http://learn.code4sa.org \
+      NGINX_PORT=80
+```
+
+Push any config/dockerfile updates to dokku. Dokku will build an image based on Dockerfile.
+
+```
+git push dokku master
 ```

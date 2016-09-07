@@ -40,10 +40,10 @@ $CFG = new stdClass();
 
 $CFG->dbtype    = 'pgsql';      // 'pgsql', 'mariadb', 'mysqli', 'mssql', 'sqlsrv' or 'oci'
 $CFG->dblibrary = 'native';     // 'native' only at the moment
-$CFG->dbhost    = getenv('DB_HOST');  // eg 'localhost' or 'db.isp.com' or IP
+$CFG->dbhost    = getenv('DB_HOST') ?: 'localhost';  // eg 'localhost' or 'db.isp.com' or IP
 $CFG->dbname    = getenv('DB_NAME') ?: 'moodle';     // database name, eg moodle
-$CFG->dbuser    = getenv('DB_HOST') ?: 'moodle';   // your database username
-$CFG->dbpass    = getenv('DB_HOST') ?: 'moodle';   // your database password
+$CFG->dbuser    = getenv('DB_USER') ?: 'moodle';   // your database username
+$CFG->dbpass    = getenv('DB_PASSWORD') ?: 'moodle';   // your database password
 $CFG->prefix    = 'mdl_';       // prefix to use for all table names
 $CFG->dboptions = array(
     'dbpersist' => false,       // should persistent database connections be
@@ -73,7 +73,7 @@ $CFG->dboptions = array(
 // If you need both intranet and Internet access please read
 // http://docs.moodle.org/en/masquerading
 
-$CFG->wwwroot   = getenv('MOODLE_URL') ?: 'http://learn.code4sa.org';
+$CFG->wwwroot   = getenv('MOODLE_URL') ?: 'http://localhost';
 
 
 //=========================================================================
