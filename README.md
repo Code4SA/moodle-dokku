@@ -7,21 +7,19 @@ Set up the database according to https://docs.moodle.org/31/en/PostgreSQL
 This image is usually built by docker hub and pulled by the dokku host. You don't usually need to build it yourself.
 
 ```shell
-docker build -t moodle-base:latest -f Dockerfile-base .
+docker build -t code4sa/moodle-base:latest -f Dockerfile-base .
 ```
 
 ## Building app image for local testing
 
-Note if you want to use a locally-built base image you should change the FROM statement in `Dockerfile`
-
 ```shell
-docker build -t moodle-dokku:latest -f Dockerfile .
+docker build -t code4sa/moodle-dokku:latest -f Dockerfile --build-arg NEWRELIC_KEY=... .
 ```
 
 ## Run locally
 
 ```shell
-docker run -i --net=host -v `pwd`/moodledata:/var/moodledata --name=moodle moodle-dokku:latest
+docker run -i --net=host -v `pwd`/moodledata:/var/moodledata --name=moodle code4s/moodle-dokku:latest
 ```
 
 ### Restart a previously-run container
@@ -36,7 +34,7 @@ Add remote to your local repo
 
     git remote add dokku dokku@dokku6.code4sa.org:moodle
 
-Configure environment variables on server
+Configure environment variables and options on server, replacing ... with appropriate values
 
 ```
 dokku config:set moodle \
@@ -47,6 +45,7 @@ dokku config:set moodle \
       MOODLE_URL=http://learn.code4sa.org
 dokku docker-options:add moodle build,run,deploy "-v /var/log/moodle/apache2:/var/log/apache2"
 dokku docker-options:add moodle build,run,deploy "-v /var/moodle/:/var/moodledata"
+dokku docker-options:add moodle build "--build-arg NEWRELIC_KEY=..."
 dokku proxy:ports-add moodle http:80:80
 ```
 
