@@ -53,3 +53,7 @@ dokku proxy:ports-add moodle http:80:80
 Push any config/dockerfile updates to dokku. Dokku will build an image based on Dockerfile.
 
     git push dokku master
+
+## Configure Cron
+
+*/1 * * * * dokku --rm run  moodle /usr/bin/php /var/www/html/admin/cli/cron.php > /dev/null
