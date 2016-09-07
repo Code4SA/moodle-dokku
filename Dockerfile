@@ -11,4 +11,7 @@ ARG NEWRELIC_KEY=
 RUN echo newrelic-php5 newrelic-php5/license-key string $NEWRELIC_KEY | \
     debconf-set-selections
 
+RUN mkdir /app
+COPY CHECKS /app/CHECKS
+
 CMD ["/etc/apache2/foreground.sh"]

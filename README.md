@@ -49,6 +49,10 @@ dokku docker-options:add moodle build "--build-arg NEWRELIC_KEY=..."
 dokku proxy:ports-add moodle http:80:80
 ```
 
+If the base image has been updated, ensure the latest image is on the host
+
+    ubuntu@dokku6:~$ docker pull code4sa/moodle-base:latest
+
 Push any config/dockerfile updates to dokku. Dokku will build an image based on Dockerfile.
 
     git push dokku master
