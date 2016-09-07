@@ -1,4 +1,4 @@
-FROM moodle-base:latest
+FROM code4sa/moodle-base:latest
 
 MAINTAINER Code For South Africa <info@code4sa.org>
 

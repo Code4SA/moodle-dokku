@@ -12,19 +12,25 @@ docker build -t moodle-base:latest -f Dockerfile-base .
 
 ## Building app image for local testing
 
+Note if you want to use a locally-built base image you should change the FROM statement in `Dockerfile`
+
 ```shell
 docker build -t moodle-dokku:latest -f Dockerfile .
 ```
 
 ## Run locally
 
-```
+```shell
 docker run -i --net=host -v `pwd`/moodledata:/var/moodledata --name=moodle moodle-dokku:latest
 ```
 
 Visit it at http://localhost/
 
 ## Deploy to production
+
+Add remote to your local repo
+
+    git remote add dokku dokku@dokku6.code4sa.org:moodle
 
 Configure environment variables on server
 
@@ -40,6 +46,4 @@ dokku config:set moodle \
 
 Push any config/dockerfile updates to dokku. Dokku will build an image based on Dockerfile.
 
-```
-git push dokku master
-```
+    git push dokku master
