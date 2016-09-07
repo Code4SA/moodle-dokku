@@ -24,6 +24,10 @@ docker build -t moodle-dokku:latest -f Dockerfile .
 docker run -i --net=host -v `pwd`/moodledata:/var/moodledata --name=moodle moodle-dokku:latest
 ```
 
+### Restart a previously-run container
+
+docker start -i moodle
+
 Visit it at http://localhost/
 
 ## Deploy to production
@@ -42,6 +46,8 @@ dokku config:set moodle \
       DB_PASSWORD=... \
       MOODLE_URL=http://learn.code4sa.org \
       NGINX_PORT=80
+dokku docker-options:add moodle build,run,deploy "-v /var/log/moodle/apache2:/var/log/apache2"
+dokku docker-options:add moodle build,run,deploy "-v /var/moodle/:/var/moodledata"
 ```
 
 Push any config/dockerfile updates to dokku. Dokku will build an image based on Dockerfile.
