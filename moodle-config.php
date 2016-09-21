@@ -73,7 +73,7 @@ $CFG->dboptions = array(
 // If you need both intranet and Internet access please read
 // http://docs.moodle.org/en/masquerading
 
-$CFG->wwwroot   = getenv('MOODLE_URL') ?: 'https://localhost';
+$CFG->wwwroot   = getenv('MOODLE_URL') ?: 'https://learn.code4sa.org';
 
 
 //=========================================================================
