@@ -42,7 +42,7 @@ dokku config:set moodle \
       DB_NAME=moodle \
       DB_USER=moodle \
       DB_PASSWORD=... \
-      MOODLE_URL=http://learn.code4sa.org
+      MOODLE_URL=https://learn.code4sa.org
 dokku docker-options:add moodle build,run,deploy "-v /var/log/moodle/apache2:/var/log/apache2"
 dokku docker-options:add moodle build,run,deploy "-v /var/moodle/:/var/moodledata"
 dokku docker-options:add moodle build "--build-arg NEWRELIC_KEY=..."
