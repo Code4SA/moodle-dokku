@@ -29,6 +29,7 @@ To upgrade:
 This image is usually built by docker hub and pulled by the dokku host. You don't usually need to build it yourself.
 
 ```shell
+docker build -t code4sa/moodle-deps-base:latest -f Dockerfile-deps-base .
 docker build -t code4sa/moodle-base:latest -f Dockerfile-base .
 ```
 
